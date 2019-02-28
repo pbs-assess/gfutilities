@@ -191,3 +191,38 @@ latex.subscr <- function(main.txt, subscr.txt){
 latex.supscr <- function(main.txt, supscr.txt){
   paste0(main.txt, "\\supscr{", supscr.txt, "}")
 }
+
+#' Create a character vector to use in an align argument for xtable()
+#'
+#' @param num The number of columns
+#' @param first.left If TRUE, set the first column to be left-justified
+#' @param just The justification of all columns, unless first.left is TRUE.
+#' "r", "l", or "c"
+#'
+#' @return A character vector to use in an align argument for xtable()
+#' @export
+#'
+#' @examples
+#' d <- data.frame(a = c(1,2,3), b = c(10,20,30))
+#' print(xtable(d,
+#'              caption = "The table caption",
+#'              label = "tab:example",
+#'              align = get.align(ncol(d), just = "c")),
+#'       caption.placement = "top",
+#'       include.rownames = FALSE,
+#'       table.placement = "H",
+#'       sanitize.text.function = function(x){x},
+#'       size = latex.size.str(12, 11))
+get.align <- function(num,
+                      first.left = TRUE,
+                      just = "r"){
+  if(first.left){
+    align <- c("l", "l")
+  }else{
+    align <- c(just, just)
+  }
+  for(i in 1:(num-1)){
+    align <- c(align, just)
+  }
+  align
+}
