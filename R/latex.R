@@ -1,3 +1,18 @@
+#' Escape all instances of the percent symbol properly for latex
+#'
+#' @param vec Character vector
+#'
+#' @return The input vector with all instances of the percent symbol escaped
+#' properly for latex
+#'
+#' @export
+#'
+#' @examples
+#' latex.perc(c("2.5%", "50%", "97.5%"))
+latex.perc <- function(vec){
+  gsub("%", "\\\\%", vec)
+}
+
 #' Create a string of ampersands seperated by spaces
 #'
 #' @param n The number of ampersands in the string
