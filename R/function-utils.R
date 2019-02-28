@@ -1,6 +1,6 @@
-#' get.args
+#' Get a list of the arguments used within any function call
 #'
-#' @return a list of the argument values used in a function call
+#' @return A list of the argument values used in a function call
 #'
 #' @examples
 #' eg <- function(a = 1, b = 2, c = 5){
