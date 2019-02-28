@@ -1,0 +1,193 @@
+#' Create a string of ampersands seperated by spaces
+#'
+#' @param n The number of ampersands in the string
+#'
+#' @return A string of ampersands seperated by spaces. The string will have
+#' one leading space and one trailing space
+#' @export
+#'
+#' @examples
+#' latex.amp(10)
+latex.amp <- function(n = 1){
+  paste0(rep(" &", n), " ", collapse = "")
+}
+
+#' Create a string comprised of each element in the vector with an
+#' ampersand in between
+#'
+#' @param vec A vector of strings
+#'
+#' @return A string comprised of each element in the vector with an
+#' ampersand in between. The string will have one leading and one
+#' trailing space
+#' @export
+#'
+#' @examples
+#' latex.paste(c("a", "b", "c"))
+latex.paste <- function(vec){
+  paste(" ", vec, " ", collapse = " & ")
+}
+
+#' Place \\textbf macro around text for latex boldface
+#'
+#' @param txt The text
+#'
+#' @return The text surrounded by \\textbf{}
+#' @export
+#'
+#' @examples
+#' latex.bold("Test")
+latex.bold <- function(txt){
+  paste0("\\textbf{", txt, "}")
+}
+
+#' Place \\emph macro around text for latex italics
+#'
+#' @param txt The text
+#'
+#' @return The text surrounded by \\emph{}
+#' @export
+#'
+#' @examples
+#' latex.italics("Test")
+latex.italics <- function(txt){
+  paste0("\\emph{", txt, "}")
+}
+
+#' Place \\underline macro around text for latex underlining
+#'
+#' @param txt The text
+#'
+#' @return The text surrounded by \\underline{}
+#' @export
+#'
+#' @examples
+#' latex.under("Test")
+latex.under <- function(txt){
+  paste0("\\underline{", txt, "}")
+}
+
+#' Create a string which has been glued together using multi-line-cell
+#' macro for latex
+#'
+#' mlc must be defined as follows in the latex code:
+#' \newcommand{\mlc}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+#'
+#' @param latex.vec The vector of strings to glue together
+#' @param bold If TRUE, the text will be made boldface by inserting
+#' the \\textbf{} macro
+#'
+#' @return A string which has been glued together using multi-line-cell
+#' macro for latex
+#' @export
+#'
+#' @examples
+#' latex.mlc(c("This", "is a", "test"), bold = TRUE)
+latex.mlc <- function(latex.vec, bold = TRUE){
+  if(bold){
+    latex.vec <- sapply(latex.vec, latex.bold)
+  }
+  latex.str <- paste(latex.vec, collapse = latex.nline)
+  paste0("\\mlc{", latex.str, "}")
+}
+
+#' Place \\multicolumn macro around text
+#'
+#' @param ncol The number of columns to span
+#' @param just The justification e.g. "l", "c", or "r" for left, center, right
+#' @param txt The text
+#'
+#' @return The given text with the latex \\multicolumn{} macro around it
+#' @export
+#'
+#' @examples
+#' latex.mcol(5, "l", "This is a test column header")
+latex.mcol <- function(ncol, just, txt){
+  paste0("\\multicolumn{", ncol, "}{", just, "}{", txt, "}")
+}
+
+#' Place \\multirow macro around text
+#'
+#' @param nrow The number of rows to span
+#' @param just The justification e.g. "l", "c", or "r" for left, center, right
+#' @param txt The text
+#'
+#' @return The given text with the latex \\multirow{} macro around it
+#' @export
+#'
+#' @examples
+#' latex.mrow(5, "l", "This is a test row header")
+latex.mrow <- function(nrow, just, txt){
+  paste0("\\multirow{", nrow, "}{", just, "}{", txt, "}")
+}
+
+#' Create a latex string for setting the given font size and space size
+#'
+#' @param fnt.size Font size
+#' @param spc.size Space between text size
+#'
+#' @return A latex string for setting the given font size and space size
+#' @export
+#'
+#' @examples
+#' latex.size.str(10, 11)
+latex.size.str <- function(fnt.size, spc.size){
+  paste0("\\fontsize{", fnt.size, "}{", spc.size, "}\\selectfont")
+}
+
+#' Create a latex string to draw a horizontal line across the columns specified
+#'
+#' @param cols A string representing the columns to span e.g. "1-5"
+#'
+#' @return A latex string to draw a horizontal line across the columns specified
+#' @export
+#'
+#' @examples
+#' latex.cline("1-5")
+latex.cline <- function(cols){
+  paste0("\\cline{", cols, "}")
+}
+
+#' Create a latex string to draw a horizontal line across the columns specified
+#'
+#' @param cols A string representing the columns to span e.g. "1-5"
+#' @param trim Tells latex to trim the line a bit so that if there are two lines
+#' close together they don't touch in the middle (See booktabs package).
+#' Can be "l" for left, "r" for right, or "lr" for both sides of line
+#'
+#' @return A latex string to draw a horizontal line across the columns specified
+#' @export
+#'
+#' @examples
+#' latex.cmidr("1-5", "lr")
+latex.cmidr <- function(cols, trim = "r"){
+  paste0("\\cmidrule(", trim, "){", cols, "}")
+}
+
+#' Create a subscript in latex
+#'
+#' @param main.txt The main part of the text
+#' @param subscr.txt The subscripted part of the text
+#'
+#' @return A latex string with subscripting
+#' @export
+#'
+#' @examples
+#' latex.subscr("B", "0")
+latex.subscr <- function(main.txt, subscr.txt){
+  paste0(main.txt, "\\subscr{", subscr.txt, "}")
+}
+
+#' Create a superscript in latex
+#'
+#' @param main.txt The main part of the text
+#' @param supscr.txt The superscripted part of the text
+#'
+#' @return A latex string with superscripting
+#' @export
+#'
+#' @examples
+#' latex.supscr("x", "2")
+latex.supscr <- function(main.txt, supscr.txt){
+  paste0(main.txt, "\\supscr{", supscr.txt, "}")
+}
