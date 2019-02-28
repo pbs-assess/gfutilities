@@ -1,4 +1,4 @@
-#' number.to.word
+#' Convert a number into an English word
 #'
 #' @param x The number to change into English
 #' @param th Make the word end in 'st', 'nd', 'rd', or 'th'
