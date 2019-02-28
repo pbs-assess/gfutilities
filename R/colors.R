@@ -60,3 +60,27 @@ get_shade <- function(color, opacity = 0){
   }
   shade
 }
+
+#' Create a vector of n colors that are perceptually equidistant and in an
+#' order that is easy to interpret
+#'
+#' @param n The number of colors to produce
+#' @param alpha Transparency, from 0 (fully transparent) to 1 (opaque)
+#'
+#' @return A vector of n colors
+#' @export
+#'
+#' @examples
+#' rich.colors(12)
+rich.colors <- function(n, alpha = 1){
+  x <- seq(0, 1, length = n)
+  r <- 1 / (1 + exp(20 - 35 * x))
+  g <- pmin(pmax(0, -0.8 + 6 * x - 5 * x^2), 1)
+  b <- dnorm(x, 0.25, 0.15) / max(dnorm(x, 0.25, 0.15))
+  rgb.m <- matrix(c(r, g, b), ncol = 3)
+  apply(rgb.m,
+        1,
+        function(v){
+          rgb(v[1],v[2],v[3],alpha = alpha)
+        })
+}
