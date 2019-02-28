@@ -8,10 +8,12 @@
 #' @export
 #'
 #' @examples
-#' number.to.word(1)
-#' number.to.word(999999, th = TRUE)
-#' number.to.word(101, cap.first = TRUE)
-number.to.word <- function(x, th = FALSE, cap.first = FALSE){
+#' number_to_word(1)
+#' number_to_word(999999, th = TRUE)
+#' number_to_word(101, cap_first = TRUE)
+number_to_word <- function(x,
+                           th = FALSE,
+                           cap_first = FALSE){
   helper <- function(x){
     digits <- rev(strsplit(as.character(x), "")[[1]])
     nDigits <- length(digits)

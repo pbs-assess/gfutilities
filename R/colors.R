@@ -13,11 +13,11 @@
 #' @export
 #'
 #' @examples
-#' get.shade("blue", 1)
-#' get.shade("salmon")
-#' get.shade(c(1, 2, 3), 50)
-#' get.shade(c("red", "blue", "yellow"), 20)
-get.shade <- function(color, opacity = 0){
+#' get_shade("blue", 1)
+#' get_shade("salmon")
+#' get_shade(c(1, 2, 3), 50)
+#' get_shade(c("red", "blue", "yellow"), 20)
+get_shade <- function(color, opacity = 0){
   if(!(opacity %% 1 == 0) || opacity < 0 || opacity > 99){
     warning("Opacity argument must be an integer between 0 and 99. Setting to 0.")
     opacity <- 0
