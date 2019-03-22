@@ -11,6 +11,7 @@
 #'               AA = alpha or opacity
 #'
 #' @export
+#' @importFrom grDevices rgb col2rgb
 #'
 #' @examples
 #' get_shade("blue", 1)
@@ -26,7 +27,7 @@ get_shade <- function(color, opacity = 0){
   if(nchar(opacity) == 1){
     opacity <- paste0("0", opacity)
   }
-  colorDEC <- col2rgb(color)
+  colorDEC <- grDevices::col2rgb(color)
   if(is.matrix(colorDEC)){
     colorHEX <- matrix(nrow = 3,
                        ncol = ncol(colorDEC))
@@ -69,6 +70,7 @@ get_shade <- function(color, opacity = 0){
 #'
 #' @return A vector of n colors
 #' @export
+#' @importFrom stats dnorm
 #'
 #' @examples
 #' rich.colors(12)
@@ -76,11 +78,11 @@ rich.colors <- function(n, alpha = 1){
   x <- seq(0, 1, length = n)
   r <- 1 / (1 + exp(20 - 35 * x))
   g <- pmin(pmax(0, -0.8 + 6 * x - 5 * x^2), 1)
-  b <- dnorm(x, 0.25, 0.15) / max(dnorm(x, 0.25, 0.15))
+  b <- stats::dnorm(x, 0.25, 0.15) / max(dnorm(x, 0.25, 0.15))
   rgb.m <- matrix(c(r, g, b), ncol = 3)
   apply(rgb.m,
         1,
         function(v){
-          rgb(v[1],v[2],v[3],alpha = alpha)
+          grDevices::rgb(v[1],v[2],v[3],alpha = alpha)
         })
 }

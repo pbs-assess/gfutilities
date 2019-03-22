@@ -100,9 +100,9 @@ latex.under <- function(txt){
 #' latex.mlc(c("This", "is a", "test"), bold = TRUE)
 latex.mlc <- function(latex.vec, bold = TRUE){
   if(bold){
-    latex.vec <- sapply(latex.vec, latex.bold)
+    latex.vec <- sapply(latex.vec, gfutilities::latex.bold)
   }
-  latex.str <- paste(latex.vec, collapse = latex.nline)
+  latex.str <- paste(latex.vec, collapse = gfutilities::latex.nline)
   paste0("\\mlc{", latex.str, "}")
 }
 

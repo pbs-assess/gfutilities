@@ -22,3 +22,18 @@ list.string <- function(vec){
   j <- paste(vec[-length(vec)], collapse = ", ")
   paste(j, "and", vec[length(vec)])
 }
+
+#' Capitalize the first letter in strings
+#'
+#' @param x A vector of strings
+#'
+#' @return the same vector back, with the first letter capitalized for each vector element
+#' @export
+#'
+#' @examples
+#' firstup("hello")
+#' firstup(c("hello", "world"))
+firstup <- function(x){
+  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+  x
+}

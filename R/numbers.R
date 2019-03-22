@@ -2,7 +2,7 @@
 #'
 #' @param x The number to change into English
 #' @param th Make the word end in 'st', 'nd', 'rd', or 'th'
-#' @param cap.first Capitalize the first letter of the resulting word
+#' @param cap_first Capitalize the first letter of the resulting word
 #'
 #' @return English text representing the number given
 #' @export
@@ -132,7 +132,7 @@ number_to_word <- function(x,
     }
     j <- paste(c(first, last), collapse = " ")
   }
-  if(cap.first){
+  if(cap_first){
     j <- paste0(toupper(substr(j, 1, 1)),
                 substr(j, 2, nchar(j)))
   }
