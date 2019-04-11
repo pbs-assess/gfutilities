@@ -3,6 +3,7 @@
 export(f)
 export(firstup)
 export(get.align)
+export(get.args)
 export(get_shade)
 export(latex.amp)
 export(latex.bold)

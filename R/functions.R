@@ -2,6 +2,8 @@
 #'
 #' @return A list of the argument values used in a function call
 #'
+#' @export
+#'
 #' @examples
 #' eg <- function(a = 1, b = 2, c = 5){
 #'   get.args()
