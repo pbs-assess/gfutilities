@@ -1,7 +1,7 @@
 ## ------------------------------------------------------------------------------------------------
 context("Check that strings with special characters are properly identified")
 
-test_that("Single strings with special characters are properly identified", {
+test_that("Strings with special characters are properly identified", {
   expect_equal(has_specials("hello?", white = TRUE), TRUE)
   expect_equal(has_specials("hello?", white = FALSE), TRUE)
   expect_equal(has_specials("hello", white = TRUE), FALSE)
