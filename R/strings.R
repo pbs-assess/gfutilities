@@ -1,3 +1,36 @@
+#' Do strings contain special characters
+#'
+#' @param str A vector of strings to check
+#' @param white Include whitespace as special characters?
+#'
+#' @return A logical vector representing if the input strings contain special characters or not
+#' @export
+#'
+#' @examples
+#' has_specials("HelloWorld")
+#' has_specials(c("hello!", "asd", "11`"))
+has_specials <- function(str, white = FALSE){
+  pattern <- "/|:|\\?|!|~|;|\\.|,|\\+|&|\\||<|>|@|\\$|\\^|`|'|\\(|\\)|\\[|\\]|\\{|\\}|\\|\\\\|\\\\\\\\|\\*"
+  ret <- vector(length = length(str))
+  sapply(seq_along(str), function(x){
+    if(white){
+      if(grepl("[[:space:]]+", str[x])){
+        ret[x] <- TRUE
+      }else if(str[x] == "\\" | grepl(pattern, str[x])){
+        ret[x] <- TRUE
+      }else{
+        ret[x] <- FALSE
+      }
+    }else{
+      if(str[x] == "\\" | grepl(pattern, str[x])){
+        ret[x] <- TRUE
+      }else{
+        ret[x] <- FALSE
+      }
+    }
+  })
+}
+
 #' Create a string out of the strings in vec, by glueing together with commas
 #' and placing 'and' before the last one
 #'
