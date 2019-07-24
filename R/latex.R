@@ -86,7 +86,7 @@ latex.under <- function(txt){
 #' macro for latex
 #'
 #' mlc must be defined as follows in the latex code:
-#' \newcommand{\mlc}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+#' \\newcommand{\\mlc}[2][c]{\\begin{tabular}[#1]{@{}c@{}}#2\\end{tabular}}
 #'
 #' @param latex.vec The vector of strings to glue together
 #' @param bold If TRUE, the text will be made boldface by inserting
@@ -218,6 +218,8 @@ latex.supscr <- function(main.txt, supscr.txt){
 #' @export
 #'
 #' @examples
+#' library(gfutilities)
+#' library(xtable)
 #' d <- data.frame(a = c(1,2,3), b = c(10,20,30))
 #' print(xtable(d,
 #'              caption = "The table caption",

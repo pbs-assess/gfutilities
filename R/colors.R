@@ -11,9 +11,10 @@
 #'               AA = alpha or opacity
 #'
 #' @export
-#' @importFrom grDevices rgb col2rgb
+#' @importFrom grDevices col2rgb
 #'
 #' @examples
+#' library(gfutilities)
 #' get_shade("blue", 1)
 #' get_shade("salmon")
 #' get_shade(c(1, 2, 3), 50)
@@ -71,10 +72,12 @@ get_shade <- function(color, opacity = 0){
 #' @return A vector of n colors
 #' @export
 #' @importFrom stats dnorm
+#' @importFrom grDevices rgb
 #'
 #' @examples
-#' rich.colors(12)
-rich.colors <- function(n, alpha = 1){
+#' library(gfutilities)
+#' rich_colors(12)
+rich_colors <- function(n, alpha = 1){
   x <- seq(0, 1, length = n)
   r <- 1 / (1 + exp(20 - 35 * x))
   g <- pmin(pmax(0, -0.8 + 6 * x - 5 * x^2), 1)

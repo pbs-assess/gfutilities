@@ -5,12 +5,13 @@
 #' @export
 #'
 #' @examples
+#' library(gfutilities)
 #' eg <- function(a = 1, b = 2, c = 5){
-#'   get.args()
+#'   get_args()
 #' }
 #' eg()
 #' eg(10, c = 20)
-get.args <- function(){
+get_args <- function(){
     def.call <- sys.call(-1)
     def <- get(as.character(def.call[[1]]), mode="function", sys.frame(-2))
     act.call <- match.call(definition = def, call = def.call)

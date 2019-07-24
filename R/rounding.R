@@ -21,16 +21,16 @@ f <- function(x, dec.points = 0){
          nsmall = dec.points)
 }
 
-round_nice <- function(x) {
-  out <- plyr::round_any(x, 100)
-  out[out == 0] <- x[out == 0]
-  out[x == 0] <- ""
-  out
-}
-
-mround <- function(x, base){
-  base * round(x / base)
-}
+# round_nice <- function(x) {
+#   out <- plyr::round_any(x, 100)
+#   out[out == 0] <- x[out == 0]
+#   out[x == 0] <- ""
+#   out
+# }
+#
+# mround <- function(x, base){
+#   base * round(x / base)
+# }
 
 #' Round down to the nearest even number
 #'
