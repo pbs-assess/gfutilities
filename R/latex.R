@@ -89,20 +89,24 @@ latex.under <- function(txt){
 #' \\newcommand{\\mlc}[2][c]{\\begin{tabular}[#1]{@{}c@{}}#2\\end{tabular}}
 #'
 #' @param latex.vec The vector of strings to glue together
-#' @param bold If TRUE, the text will be made boldface by inserting
-#' the \\textbf{} macro
+#' @param make.bold the \\textbf macro will be inserted unless math.bold is TRUE
+#' @param math.bold if TRUE, the \\mathbf macro will be used
 #'
 #' @return A string which has been glued together using multi-line-cell
 #' macro for latex
 #' @export
 #'
 #' @examples
-#' latex.mlc(c("This", "is a", "test"), bold = TRUE)
-latex.mlc <- function(latex.vec, bold = TRUE){
-  if(bold){
-    latex.vec <- sapply(latex.vec, gfutilities::latex.bold)
+#' latex.mlc(c("This", "is a", "test"), make.bold = TRUE)
+latex.mlc <- function(latex.vec, make.bold = TRUE, math.bold = FALSE){
+  if(make.bold){
+    if(math.bold){
+      latex.vec <- sapply(latex.vec, latex.math.bold)
+    }else{
+      latex.vec <- sapply(latex.vec, latex.bold)
+    }
   }
-  latex.str <- paste(latex.vec, collapse = gfutilities::latex.nline)
+  latex.str <- paste(latex.vec, collapse = latex.nline)
   paste0("\\mlc{", latex.str, "}")
 }
 
