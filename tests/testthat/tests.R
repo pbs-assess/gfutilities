@@ -60,4 +60,6 @@ test_that("List of strings is correct", {
   expect_error(commify(c("a", "b"), 1))
   expect_equal(commify(c("a", "b", "c"), use_and = TRUE), "a, b, and c")
   expect_equal(commify(c("a", "b", "c"), use_and = FALSE), "a, b, c")
+  expect_equal(commify(c("a", "b")), "a and b")
+  expect_equal(commify(c("a", "b"), use_and = FALSE), "a and b")
 })

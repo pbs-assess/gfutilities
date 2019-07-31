@@ -135,6 +135,9 @@ commify <- function(vec, use_and = TRUE){
   if(length(vec) == 1){
     return(vec)
   }
+  if(length(vec) == 2){
+    return(paste(vec[1], "and", vec[2]))
+  }
   if(use_and){
     tmp <- paste(vec[-length(vec)], collapse = ", ")
     tmp <- paste0(tmp, ", and ", vec[length(vec)])
