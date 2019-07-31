@@ -56,6 +56,19 @@ latex.bold <- function(txt){
   paste0("\\textbf{", txt, "}")
 }
 
+#' Place \\mathbf macro and dollar signs around text for latex math boldface
+#'
+#' @param txt The text
+#'
+#' @return The text surrounded by \\mathbf{} and dollar signs
+#' @export
+#'
+#' @examples
+#' latex.math.bold("Test")
+latex.math.bold <- function(txt){
+  paste0("$\\mathbf{", txt, "}$")
+}
+
 #' Place \\emph macro around text for latex italics
 #'
 #' @param txt The text
