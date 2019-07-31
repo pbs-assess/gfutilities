@@ -118,3 +118,28 @@ file_addext <- function(filename, ext){
   names(filenames_corr) <- NULL
   filenames_corr
 }
+
+#' Take the input vector and create a comma-seperated string
+#'
+#' @param vec Vector of character strings to use
+#' @param use_and Add the word 'and' before the last string
+#'
+#' @return A string
+#' @export
+#'
+#' @examples
+#' library(gfutilities)
+#' commify(c("One", "two", "three", "four"))
+commify <- function(vec, use_and = TRUE){
+  stopifnot(typeof(vec) == "character", length(vec) > 0, typeof(use_and) == "logical")
+  if(length(vec) == 1){
+    return(vec)
+  }
+  if(use_and){
+    tmp <- paste(vec[-length(vec)], collapse = ", ")
+    tmp <- paste0(tmp, ", and ", vec[length(vec)])
+  }else{
+    tmp <- paste(vec, collapse = ", ")
+  }
+  tmp
+}
