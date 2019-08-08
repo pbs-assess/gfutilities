@@ -9,7 +9,8 @@ Imports:
   grDevices,
   stringr,
   xtable,
-  testthat
+  testthat,
+  tibble
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
