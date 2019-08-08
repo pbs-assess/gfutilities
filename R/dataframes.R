@@ -1,35 +1,35 @@
-#' 'Rasterify' column names. Change x and y column names into upper case or lower case
+#' 'Rasterify' column names. Change x and y column names into lower case or upper case
 #'
 #' @param df data frame
-#' @param inv If TRUE, change x and y column names to lower case
+#' @param inv If TRUE, change x and y column names to upper case
 #'
 #' @return modified data frame
 rasterify_cols <- function(df, inv = FALSE){
   nms <- colnames(df)
   has_x <- FALSE
   has_y <- FALSE
-  if("x" %in% nms){
-    has_x <- TRUE
-    x_ind <- match("x", nms)
-  }
   if("X" %in% nms){
+    has_x <- TRUE
+    x_ind <- match("X", nms)
+  }
+  if("x" %in% nms){
     if(has_x){
       stop("Both capital and small x exist as column names", call. = FALSE)
     }
     has_x <- TRUE
-    x_ind <- match("X", nms)
+    x_ind <- match("x", nms)
   }
 
-  if("y" %in% nms){
-    has_y <- TRUE
-    y_ind <- match("y", nms)
-  }
   if("Y" %in% nms){
+    has_y <- TRUE
+    y_ind <- match("Y", nms)
+  }
+  if("y" %in% nms){
     if(has_y){
       stop("Both capital and small y exist as column names", call. = FALSE)
     }
     has_y <- TRUE
-    y_ind <- match("Y", nms)
+    y_ind <- match("y", nms)
   }
   if(!has_x){
     stop("Data frame does not contain an x column", call. = FALSE)
@@ -37,8 +37,8 @@ rasterify_cols <- function(df, inv = FALSE){
   if(!has_y){
     stop("Data frame does not contain an y column", call. = FALSE)
   }
-  colnames(df)[x_ind] <- ifelse(inv, "x", "X")
-  colnames(df)[y_ind] <- ifelse(inv, "y", "Y")
+  colnames(df)[x_ind] <- ifelse(inv, "X", "x")
+  colnames(df)[y_ind] <- ifelse(inv, "Y", "y")
   df
 }
 
