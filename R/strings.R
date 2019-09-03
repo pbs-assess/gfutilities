@@ -74,6 +74,22 @@ firstup <- function(x){
   x
 }
 
+#' Make the first letter in strings lowercase
+#'
+#' @param x A vector of strings
+
+#' @return the same vector back, with the first letter non-capitalized for each vector element
+#' @export
+#'
+#' @examples
+#' library(gfutilities)
+#' firstlower("Hello")
+#' firstlower(c("Hello", "World"))
+firstlower <- function(x){
+  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+  x
+}
+
 #' Make filenames with the supplied extensions. If the extensions are already in the filenames, return the filenames
 #'
 #' @param filename name for the files with or without the extension
