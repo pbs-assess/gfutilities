@@ -70,6 +70,9 @@ list_string <- function(vec){
 #' firstup("hello")
 #' firstup(c("hello", "world"))
 firstup <- function(x){
+  stopifnot(!is.na(x),
+            !is.null(x),
+            typeof(x) == "character")
   substr(x, 1, 1) <- toupper(substr(x, 1, 1))
   x
 }
@@ -77,7 +80,6 @@ firstup <- function(x){
 #' Make the first letter in strings lowercase
 #'
 #' @param x A vector of strings
-
 #' @return the same vector back, with the first letter non-capitalized for each vector element
 #' @export
 #'
@@ -86,6 +88,9 @@ firstup <- function(x){
 #' firstlower("Hello")
 #' firstlower(c("Hello", "World"))
 firstlower <- function(x){
+  stopifnot(!is.na(x),
+            !is.null(x),
+            typeof(x) == "character")
   substr(x, 1, 1) <- toupper(substr(x, 1, 1))
   x
 }
