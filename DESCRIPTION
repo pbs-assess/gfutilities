@@ -10,7 +10,8 @@ Imports:
   stringr,
   xtable,
   testthat,
-  tibble
+  tibble,
+  gtools
 License: GPL-2
 Encoding: UTF-8
 LazyData: true

@@ -91,3 +91,31 @@ rich_colors <- function(n, alpha = 1){
           grDevices::rgb(v[1],v[2],v[3],alpha = alpha)
         })
 }
+
+
+#' Create a HEX color based on the characters of the input string
+#'
+#' @param str Input string
+#' @param first if TRUE, use the first three characters to generate the color. If FALSE,
+#' use a random selection of three characters from the string to generate the color
+#'
+#' @return a string representing the color, e.g. "#FF00EE"
+#' @export
+#' @importFrom gtools asc
+#'
+#' @examples
+#' library(gfutilities)
+#' hex_hash("Yelloweye Rockfish", FALSE)
+hex_hash <- function(str, first = TRUE){
+  stopifnot(class(str) == "character",
+            class(first) == "logical",
+            nchar(str) >= 3)
+
+  hex <- "#"
+  chr <- ifelse(first, 1:3, sample(1:nchar(str), 3))
+  for(i in 1:3){
+    val <- stringr::str_sub(str, chr[i], chr[i])
+    hex <- paste0(hex, as.hexmode(gtools::asc(val)))
+  }
+  hex
+}
