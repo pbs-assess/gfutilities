@@ -76,7 +76,8 @@ get_shade <- function(color, opacity = 0){
 #'
 #' @examples
 #' library(gfutilities)
-#' rich_colors(12)
+# x <- rich_colors(12, 1)
+# plot(1:20,1:20,col=x,pch=20,cex=5)
 rich_colors <- function(n, alpha = 1){
   x <- seq(0, 1, length = n)
   r <- 1 / (1 + exp(20 - 35 * x))
