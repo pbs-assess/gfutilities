@@ -144,24 +144,26 @@ file_addext <- function(filename, ext){
 #'
 #' @param vec Vector of character strings to use
 #' @param use_and Add the word 'and' before the last string
+#' @param translate Translate the "and"
 #'
 #' @return A string
 #' @export
+#' @importFrom rosettafish en2fr
 #'
 #' @examples
 #' library(gfutilities)
 #' commify(c("One", "two", "three", "four"))
-commify <- function(vec, use_and = TRUE){
+commify <- function(vec, use_and = TRUE, translate = FALSE){
   stopifnot(typeof(vec) == "character", length(vec) > 0, typeof(use_and) == "logical")
   if(length(vec) == 1){
     return(vec)
   }
   if(length(vec) == 2){
-    return(paste(vec[1], "and", vec[2]))
+    return(paste(vec[1], en2fr("and", translate), vec[2]))
   }
   if(use_and){
     tmp <- paste(vec[-length(vec)], collapse = ", ")
-    tmp <- paste0(tmp, ", and ", vec[length(vec)])
+    tmp <- paste0(tmp, ", ", en2fr("and", translate), " ", vec[length(vec)])
   }else{
     tmp <- paste(vec, collapse = ", ")
   }
