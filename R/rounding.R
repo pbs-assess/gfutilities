@@ -17,7 +17,7 @@
 #' f(999999.1, 3)
 f <- function(x, dec.points = 0){
   format(round(x, dec.points),
-         big.mark = ",",
+         big.mark = ifelse(options("OutDec") == ",", " ", ","),
          nsmall = dec.points)
 }
 
