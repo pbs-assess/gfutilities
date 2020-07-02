@@ -68,7 +68,7 @@ round_data_frame <- function(df, digits = 2){
     tryCatch(round(.x, digits),
              error = function(e) .x)
 
-  })
+  }) %>% as.data.frame
 }
 
 #' Round all numeric values found in a multidimensional [array]
