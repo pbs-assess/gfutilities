@@ -62,6 +62,7 @@ round_list <- function(lst, digits = 2){
 #' @return A [data.frame] identical to the input `df` but with all numerical values
 #' rounded
 #' @importFrom purrr map_df
+#' @importFrom dplyr %>%
 #' @export
 round_data_frame <- function(df, digits = 2){
   map_df(df,~{

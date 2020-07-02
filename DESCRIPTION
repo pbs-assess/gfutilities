@@ -5,6 +5,7 @@ Authors@R: person("Chris", "Grandin", email = "chris.grandin@gmail.com", role = 
 Description: Holds utility functions for groundfish stock assessment code.
 Depends: R (>= 3.4.0)
 Imports:
+  dplyr,
   stats,
   grDevices,
   stringr,
