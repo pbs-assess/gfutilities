@@ -1,38 +1,38 @@
 context("Test the rasterify_cols() function")
 
-tmp_a_b <- tribble(
+tmp_a_b <- tibble::tribble(
   ~a, ~b, ~z,
   1, 2, 3,
   4, 5, 6)
-tmp_x_y <- tribble(
+tmp_x_y <- tibble::tribble(
   ~x, ~y, ~z,
   1, 2, 3,
   4, 5, 6)
-tmp_X_Y <- tribble(
+tmp_X_Y <- tibble::tribble(
   ~X, ~Y, ~z,
   1, 2, 3,
   4, 5, 6)
-tmp_x <- tribble(
+tmp_x <- tibble::tribble(
   ~x, ~z,
   1, 2,
   4, 5)
-tmp_y <- tribble(
+tmp_y <- tibble::tribble(
   ~y, ~z,
   1, 2,
   4, 5)
-tmp_both_x_y <- tribble(
+tmp_both_x_y <- tibble::tribble(
   ~x, ~y, ~X, ~Y, ~Z,
   1, 2, 3, 4, 5,
   6, 7, 8, 9, 10,
   11, 12, 13, 14, 15,
   16, 17, 18, 19, 20)
-tmp_both_x <- tribble(
+tmp_both_x <- tibble::tribble(
   ~x, ~y, ~X,
   1, 2, 3,
   6, 7, 8,
   11, 12, 13,
   16, 17, 18,)
-tmp_both_y <- tribble(
+tmp_both_y <- tibble::tribble(
   ~Y, ~y, ~X,
   1, 2, 3,
   6, 7, 8,
