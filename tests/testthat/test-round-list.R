@@ -60,43 +60,43 @@ lst_with_arr <- list(vec = vec1,
 test_that("round_data_frame() - Tests for correct output", {
   # Test data frame with a factor column
   j <- round_data_frame(df, 2)
-  expect_equivalent(str(j), str(df))
+  expect_equal(str(j), str(df))
   expect_equal(j$a, c(1.98, 2.31, 3.14, 4.02))
   # Test data frame with a character column
   j <- round_data_frame(df_char, 2)
-  expect_equivalent(str(j), str(df_char))
+  expect_equal(str(j), str(df_char))
   expect_equal(j$a, c(1.98, 2.31, 3.14, 4.02))
 })
 
 test_that("round_3d_array() - Tests for correct output", {
   j <- round_3d_array(arr_3d, 2)
-  expect_equivalent(str(j), str(arr_3d))
+  expect_equal(str(j), str(arr_3d))
 })
 
 test_that("round_4d_array() - Tests for correct output", {
   j <- round_4d_array(arr_4d, 2)
-  expect_equivalent(str(j), str(arr_4d))
+  expect_equal(str(j), str(arr_4d))
 })
 
 test_that("round_5d_array() - Tests for correct output", {
   j <- round_5d_array(arr_5d, 2)
-  expect_equivalent(str(j), str(arr_5d))
+  expect_equal(str(j), str(arr_5d))
 })
 
 test_that("round_list() - Tests for correct output", {
   expect_equal(round_list(scalar, 2), 3.14)
   j <- round_list(scalar_lst, 2)
-  expect_equivalent(str(j), str(scalar_lst))
+  expect_equal(str(j), str(scalar_lst))
   expect_equal(j[[1]], 3.14)
   j <- round_list(lst, 2)
-  expect_equivalent(str(j), str(lst))
+  expect_equal(str(j), str(lst))
   j <- round_list(lst2, 2)
-  expect_equivalent(str(j), str(lst2))
+  expect_equal(str(j), str(lst2))
   j <- round_list(lst_lst, 2)
-  expect_equivalent(str(j), str(lst_lst))
+  expect_equal(str(j), str(lst_lst))
   j <- round_list(lst_double, 2)
-  expect_equivalent(str(j), str(lst_double))
+  expect_equal(str(j), str(lst_double))
   j <- round_list(lst_with_arr, 2)
-  expect_equivalent(str(j), str(lst_with_arr))
+  expect_equal(str(j), str(lst_with_arr))
 })
 
