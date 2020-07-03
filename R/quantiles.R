@@ -2,8 +2,8 @@
 #'
 #' @param df A [data.frame]
 #' @param grp_cols A character vector of the column names to use for grouping the data
-#' @param col A character string representing a column name on which to perform the
-#' calculations. Must be in `df` or an error will be thrown
+#' @param cols A character vector representing column names on which to perform the
+#' calculations. They must all be in `df` or an error will be thrown
 #' @param probs A vector of quantile probabilities to pass to [stats::quantile()]
 #' @param include_mean If TRUE, include the mean in the output as the column `avg`
 #'
@@ -20,17 +20,17 @@
 #' library(purrr)
 #' df <- storms %>% filter(year %in% 2000:2005)
 #' probs <- c(0.05, 0.25, 0.5, 0.75, 0.95)
-#' group_quantiles(df, grp_col = c("year", "month", "hour"), col = "wind", probs = probs)
+#' group_quantiles(df, grp_col = c("year", "month", "hour"), cols = c("wind", pressure), probs = probs)
 group_quantiles <- function(df = NULL,
                             grp_cols = NULL,
-                            col = NULL,
+                            cols = NULL,
                             probs = c(0.05, 0.25, 0.5, 0.75, 0.95),
                             include_mean = TRUE){
 
   verify_argument(df, "data.frame")
-  verify_argument(col, "character", chk_is_in = names(df))
+  verify_argument(cols, "character", chk_is_in = names(df))
   verify_argument(grp_cols, "character", chk_is_in = names(df))
-  map(col, ~{
+  map(cols, ~{
     stopifnot(class(df[[.x]]) == "numeric" | class(df[[.x]]) == "integer")
   })
   verify_argument(probs, "numeric")
@@ -40,13 +40,13 @@ group_quantiles <- function(df = NULL,
   }
   verify_argument(include_mean, "logical", 1)
 
-  calc_helper <- function(df, col, probs, include_mean){
-    nms <- map(col, ~{
+  calc_helper <- function(df, cols, probs, include_mean){
+    nms <- map(cols, ~{
       paste0(.x, "_", probs)
     })
     # There is some explanation of summarize_at/map/partial here:
     # https://tbradley1013.github.io/2018/10/01/calculating-quantiles-for-groups-with-dplyr-summarize-and-purrr-partial/
-    out <- map2(col, nms, ~{
+    out <- map2(cols, nms, ~{
       col_sym <- sym(.x)
       tmp <- summarize_at(df,
                           vars(!!col_sym),
@@ -73,7 +73,7 @@ group_quantiles <- function(df = NULL,
     select(-tmp)
   df %>%
     group_by(!!!grp_cols_sym) %>%
-    group_map(~calc_helper(.x, col, probs, include_mean)) %>%
+    group_map(~calc_helper(.x, cols, probs, include_mean)) %>%
     map_df(~{.x}) %>%
     bind_cols(grp_cols_df) %>%
     select(!!!grp_cols_sym, everything())
