@@ -20,7 +20,9 @@
 #' library(purrr)
 #' df <- storms %>% filter(year %in% 2000:2005)
 #' probs <- c(0.05, 0.25, 0.5, 0.75, 0.95)
-#' group_quantiles(df, grp_col = c("year", "month", "hour"), cols = c("wind", pressure), probs = probs)
+#' q <- group_quantiles(df, grp_cols = c("year", "month", "hour"),
+#'  cols = c("wind", "pressure"), probs = probs)
+#' print(head(q, 5))
 group_quantiles <- function(df = NULL,
                             grp_cols = NULL,
                             cols = NULL,

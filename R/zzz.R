@@ -1,3 +1,4 @@
 globalVariables(c(
-  "latex.nline"
+  "latex.nline",
+  "tmp"
 ))

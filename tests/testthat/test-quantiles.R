@@ -6,21 +6,35 @@ df <- dplyr::storms %>% dplyr::filter(year %in% 2000:2005)
 probs <- c(0.05, 0.25, 0.5, 0.75, 0.95)
 
 test_that("Arguments are acceptable", {
-  expect_error(group_quantiles(NULL, "year", "val", probs, FALSE))
-  expect_error(group_quantiles(c(1, 2, 3), "year", "val", probs, FALSE))
-  expect_error(group_quantiles("a", "year", "val", probs, FALSE))
-  expect_error(group_quantiles(c("a", 2, 3), "year", "val", probs, FALSE))
-  expect_error(group_quantiles(matrix(1:4, nrow = 2), "year", "val", probs, FALSE))
+  # df argument
+  expect_error(group_quantiles(NULL, "year", "wind", probs, FALSE))
+  expect_error(group_quantiles(c(1, 2, 3), "year", "wind", probs, FALSE))
+  expect_error(group_quantiles("a", "year", "wind", probs, FALSE))
+  expect_error(group_quantiles(c("a", 2, 3), "year", "wind", probs, FALSE))
+  expect_error(group_quantiles(matrix(1:4, nrow = 2), "year", "wind", probs, FALSE))
 
-  expect_error(group_quantiles(df, NULL, "val", probs, FALSE))
-  expect_error(group_quantiles(df, c(1, 2), "val", probs, FALSE))
+  # grp_cols argument
+  expect_error(group_quantiles(df, NULL, "wind", probs, FALSE))
+  expect_error(group_quantiles(df, c("year", "foo"), "wind", probs, FALSE))
+  expect_error(group_quantiles(df, "foo", "wind", probs, FALSE))
 
+  # cols argument
   expect_error(group_quantiles(df, "year", NULL, probs, FALSE))
-  expect_error(group_quantiles(df, "year", "val", NULL, FALSE))
-  expect_error(group_quantiles(df, "year", "val", probs, NULL))
+  expect_error(group_quantiles(df, "year", "wind", NULL, FALSE))
+  expect_error(group_quantiles(df, "year", "wind", probs, NULL))
+  expect_error(group_quantiles(df, "year", "status", probs, NULL))
 
-  expect_error(group_quantiles(df, "year", "val", probs, c(1, 2)))
-  expect_error(group_quantiles(df, "year", "val", probs, c(TRUE, TRUE)))
+  # probs argument
+  expect_error(group_quantiles(df, "year", "wind", "a"))
+  expect_error(group_quantiles(df, "year", "wind", c(1, "a")))
+  probs_err <- c(0, 0.5, 0.95)
+  expect_error(group_quantiles(df, "year", "wind", probs_err))
+  probs_err <- c(0.5, -21.01)
+  expect_error(group_quantiles(df, "year", "wind", probs_err))
+
+  # include_mean argument
+  expect_error(group_quantiles(df, "year", "wind", probs, c(1, 2)))
+  expect_error(group_quantiles(df, "year", "wind", probs, c(TRUE, TRUE)))
 })
 
 test_that("Values are correct", {
@@ -75,4 +89,8 @@ test_that("Values are correct", {
     unlist(use.names = FALSE)
   expect_equal(grp_q, actual_q)
 
+  grp <- group_quantiles(df, grp_col = "category", col = "wind", probs = probs)
+  expect_equal(levels(grp$category), c("-1", "0", "1", "2", "3", "4", "5"))
+  k <- grp[grp$category == -1,] %>% unlist(use.names = FALSE)
+  expect_equal(round(k, 3), c(1, 20, 25, 30, 30, 30, 27.603))
 })
