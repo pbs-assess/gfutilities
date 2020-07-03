@@ -14,6 +14,12 @@
 number_to_word <- function(x,
                            th = FALSE,
                            cap_first = FALSE){
+  if(x == 0){
+    if(cap_first){
+      return("Zero")
+    }
+    return("zero")
+  }
   helper <- function(x){
     digits <- rev(strsplit(as.character(x), "")[[1]])
     nDigits <- length(digits)

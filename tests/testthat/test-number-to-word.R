@@ -1,0 +1,48 @@
+context("Test the number_to_word() function")
+
+
+test_that("Outputs are correct", {
+  expect_equal(number_to_word(0), "zero")
+  expect_equal(number_to_word(0, cap_first = TRUE), "Zero")
+
+  expect_equal(number_to_word(1), "one")
+  expect_equal(number_to_word(1, th = TRUE), "first")
+  expect_equal(number_to_word(1, cap_first = TRUE), "One")
+  expect_equal(number_to_word(1, th = TRUE, cap_first = TRUE), "First")
+
+  expect_equal(number_to_word(2, th = TRUE), "second")
+  expect_equal(number_to_word(3, th = TRUE), "third")
+  expect_equal(number_to_word(4, th = TRUE), "fourth")
+  expect_equal(number_to_word(5, th = TRUE), "fifth")
+  expect_equal(number_to_word(6, th = TRUE), "sixth")
+  expect_equal(number_to_word(7, th = TRUE), "seventh")
+  expect_equal(number_to_word(8, th = TRUE), "eighth")
+  expect_equal(number_to_word(9, th = TRUE), "ninth")
+  expect_equal(number_to_word(10, th = TRUE), "tenth")
+  expect_equal(number_to_word(11, th = TRUE), "eleventh")
+  expect_equal(number_to_word(12), "twelve")
+  expect_equal(number_to_word(12, th = TRUE), "twelfth")
+  expect_equal(number_to_word(13, th = TRUE), "thirteenth")
+  expect_equal(number_to_word(14, th = TRUE), "fourteenth")
+  expect_equal(number_to_word(15, th = TRUE), "fifteenth")
+  expect_equal(number_to_word(16, th = TRUE), "sixteenth")
+  expect_equal(number_to_word(17, th = TRUE), "seventeenth")
+  expect_equal(number_to_word(18, th = TRUE), "eighteenth")
+  expect_equal(number_to_word(19, th = TRUE), "nineteenth")
+  expect_equal(number_to_word(20, th = TRUE), "twentieth")
+  expect_equal(number_to_word(30, th = TRUE), "thirtieth")
+  expect_equal(number_to_word(40, th = TRUE), "fortieth")
+  expect_equal(number_to_word(50, th = TRUE), "fiftieth")
+  expect_equal(number_to_word(60, th = TRUE), "sixtieth")
+  expect_equal(number_to_word(70, th = TRUE), "seventieth")
+  expect_equal(number_to_word(80, th = TRUE), "eightieth")
+  expect_equal(number_to_word(90, th = TRUE), "ninetieth")
+
+  expect_equal(number_to_word(999999), "nine hundred ninety nine thousand, nine hundred ninety nine")
+  expect_equal(number_to_word(999999, th = TRUE), "nine hundred ninety nine thousand, nine hundred ninety ninth")
+  expect_equal(number_to_word(999999, cap_first = TRUE), "Nine hundred ninety nine thousand, nine hundred ninety nine")
+  expect_equal(number_to_word(999999, th = TRUE, cap_first = TRUE), "Nine hundred ninety nine thousand, nine hundred ninety ninth")
+
+  expect_equal(number_to_word(11111111111), "eleven billion, one hundred eleven million, one hundred eleven thousand, one hundred eleven")
+
+})
