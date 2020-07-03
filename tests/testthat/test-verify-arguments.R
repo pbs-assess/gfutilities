@@ -21,7 +21,11 @@ f_list <- function(a){
   verify_argument(a, "list")
 }
 
-test_that("Output is TRU when inouts are correct", {
+f_len_of_len <- function(a){
+  verify_argument(a, "numeric", chk_len = c(1, 2))
+}
+
+test_that("Output is TRUE when inputs are correct", {
   expect_true(f_numeric(23))
   expect_true(f_number(c(1L, 3.01)))
   expect_true(f_character("a"))
@@ -49,4 +53,6 @@ test_that("Errors are thrown correctly for erroneous inputs", {
   expect_error(f_list(1L))
   expect_error(f_list("a"))
   expect_error(f_list(data.frame(a = c(1, 2), b = c(3, 4))))
+
+  expect_error(f_len_of_len(1))
 })
