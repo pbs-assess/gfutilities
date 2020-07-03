@@ -6,12 +6,11 @@
 #' calculations. Must be in `df` or an error will be thrown
 #' @param probs A vector of quantile probabilities to pass to [stats::quantile()]
 #' @param include_mean If TRUE, include the mean in the output as the column `avg`
-#' @param prepend_colname If TRUE, the name of the column used in the quantile calculation
-#' will be prepended to each quantile value column name
 #'
 #' @return A [data.frame] with a new column for each value in the `probs` vector
-#' @importFrom purrr set_names partial map
-#' @importFrom dplyr vars mutate summarize_at group_by group_map select everything
+#' @importFrom purrr set_names partial map map2
+#' @importFrom dplyr vars mutate summarize summarize_at group_by
+#' @importFrom dplyr group_map select everything ungroup bind_cols
 #' @importFrom rlang sym syms
 #' @importFrom stats quantile
 #' @export
@@ -26,13 +25,14 @@ group_quantiles <- function(df = NULL,
                             grp_cols = NULL,
                             col = NULL,
                             probs = c(0.05, 0.25, 0.5, 0.75, 0.95),
-                            include_mean = TRUE,
-                            prepend_colname = TRUE){
+                            include_mean = TRUE){
 
   verify_argument(df, "data.frame")
   verify_argument(col, "character", chk_is_in = names(df))
   verify_argument(grp_cols, "character", chk_is_in = names(df))
-  stopifnot(class(df[[col]]) == "numeric" | class(df[[col]]) == "integer")
+  map(col, ~{
+    stopifnot(class(df[[.x]]) == "numeric" | class(df[[.x]]) == "integer")
+  })
   verify_argument(probs, "numeric")
   if(any(probs <= 0)){
     stop("`probs` must all be positive values",
@@ -41,23 +41,25 @@ group_quantiles <- function(df = NULL,
   verify_argument(include_mean, "logical", 1)
 
   calc_helper <- function(df, col, probs, include_mean){
-    nms <- probs
-    if(prepend_colname){
-      nms <- paste0(col, "_", probs)
-    }
-    col_sym <- sym(col)
+    nms <- map(col, ~{
+      paste0(.x, "_", probs)
+    })
     # There is some explanation of summarize_at/map/partial here:
     # https://tbradley1013.github.io/2018/10/01/calculating-quantiles-for-groups-with-dplyr-summarize-and-purrr-partial/
-    out <- summarize_at(df,
-                        vars(!!col_sym),
-                        map(probs,
-                            ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
-                          set_names(nms))
-    if(include_mean){
-      avg <- sym(ifelse(prepend_colname, paste0(col, "_avg"), "avg"))
-      out <- out %>%
-        mutate(!!avg := mean(df[[col]]))
-    }
+    out <- map2(col, nms, ~{
+      col_sym <- sym(.x)
+      tmp <- summarize_at(df,
+                          vars(!!col_sym),
+                          map(probs,
+                              ~partial(quantile, probs = .x, na.rm = TRUE))) %>%
+        set_names(.y)
+      if(include_mean){
+        avg <- sym(paste0(.x, "_avg"))
+        tmp <- tmp %>%
+          mutate(!!avg := mean(df[[.x]]))
+      }
+      tmp
+    }) %>% bind_cols
     out
   }
 
