@@ -9,7 +9,8 @@
 #' @return A [list] in the same format as `lst` but with all values rounded to
 #' `digits` decimal points
 #' @export
-round_list <- function(lst, digits = 2){
+round_list <- function(lst = NULL,
+                       digits = 2){
   if(is.null(lst)){
     return(NULL)
   }
