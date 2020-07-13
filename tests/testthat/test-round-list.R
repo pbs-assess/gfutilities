@@ -72,6 +72,11 @@ lst_with_arr <- list(vec = vec1,
                      arr4 = arr_4d,
                      arr5 = arr_5d)
 
+tbl <- tibble::tribble(
+  ~a,     ~b,     ~d,
+  1.0123, 2.349586, 1.29000002,
+  2.4945, 3.344319, 4.29817376)
+
 test_that("round_data_frame() - Tests for correct output", {
   # Test data frame with a factor column
   j <- round_data_frame(df, 2)
@@ -169,5 +174,15 @@ test_that("round_list() - Tests for correct output", {
   expect_equal(j$lst_bb[3, 1], 3.142)
   expect_equal(j$lst_bb[2, 2], 4.625)
   expect_equal(j$lst_bb[3, 2], 6.283)
+
+  # Tibbles are still tibbles after
+  j <- round_list(tbl, 2)
+  expect_equal(str(j), str(tbl))
+  expect_equal(unlist(j[1, 1], use.names = FALSE), 1.01)
+  expect_equal(unlist(j[1, 2], use.names = FALSE), 2.35)
+  expect_equal(unlist(j[1, 3], use.names = FALSE), 1.29)
+  expect_equal(unlist(j[2, 1], use.names = FALSE), 2.49)
+  expect_equal(unlist(j[2, 2], use.names = FALSE), 3.34)
+  expect_equal(unlist(j[2, 3], use.names = FALSE), 4.3)
 })
 

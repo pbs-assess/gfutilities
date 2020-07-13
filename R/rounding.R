@@ -18,15 +18,16 @@ round_list <- function(lst = NULL,
   if(!length(lst)){
     return(NULL)
   }
-  if(class(lst) != "list"){
+  cls <- class(lst)
+  if(!"list" %in% cls){
     # At this point lst is a single non-list object (data frame, matrix, vector, etc)
-    if(class(lst) == "character"){
+    if("character" %in% cls){
       return(lst)
-    }else if(class(lst) == "data.frame"){
+    }else if("data.frame" %in% cls){
       return(round_data_frame(lst, digits))
-    }else if(class(lst) == "matrix"){
+    }else if("matrix" %in% cls){
       return(as.matrix(round_data_frame(as.data.frame(lst))))
-    }else if(class(lst) == "array"){
+    }else if("array" %in% cls){
       n_arr_dims <- length(dim(lst))
       if(n_arr_dims == 3){
         return(round_3d_array(lst, digits))
@@ -47,7 +48,7 @@ round_list <- function(lst = NULL,
   nms <- names(lst)
   out_first <- round_list(lst[[1]], digits)
   out_therest <- round_list(lst[-1], digits)
-  if(class(out_therest) == "list"){
+  if("list" %in% class(out_therest)){
     out <- c(list(out_first), out_therest)
   }else{
     out <- list(out_first, out_therest)
@@ -69,11 +70,18 @@ round_list <- function(lst = NULL,
 #' @importFrom dplyr %>%
 #' @export
 round_data_frame <- function(df, digits = 2){
-  map_df(df,~{
+  cls <- class(df)
+  is_tibble <- ifelse("tbl_df" %in% cls, TRUE, FALSE)
+  out_df <- map_df(df,~{
     tryCatch(round(.x, digits),
              error = function(e) .x)
 
-  }) %>% as.data.frame
+  })
+  if(is_tibble){
+    out_df
+  }else{
+    as.data.frame(out_df)
+  }
 }
 
 #' Round all numeric values found in a multidimensional [array]
