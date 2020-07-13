@@ -1,4 +1,5 @@
-#' Round all values in an arbitrarily complex [list]
+#' Round all values in an arbitrarily complex [list]. All character values
+#' are ignored and returned as they were
 #'
 #' @details This is a recursive function and therefore can have an arbitrary
 #' nesting of lists.
@@ -19,7 +20,9 @@ round_list <- function(lst = NULL,
   }
   if(class(lst) != "list"){
     # At this point lst is a single non-list object (data frame, matrix, vector, etc)
-    if(class(lst) == "data.frame"){
+    if(class(lst) == "character"){
+      return(lst)
+    }else if(class(lst) == "data.frame"){
       return(round_data_frame(lst, digits))
     }else if(class(lst) == "matrix"){
       return(as.matrix(round_data_frame(as.data.frame(lst))))

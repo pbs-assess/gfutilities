@@ -15,6 +15,12 @@ m1 <- as.matrix(df1)
 m2 <- as.matrix(df2)
 lst <- list(lst_aa = vec1,
             lst_bb = df1)
+lst_with_vec_of_chars <- list(lst,
+                              c("a", "b", "c"))
+lst_with_lst_of_chars <- list(lst,
+                              list("a", "b", "c"))
+lst_with_vec_and_lst_of_chars <- list(lst_with_vec_of_chars,
+                                      lst_with_lst_of_chars)
 lst_lst <- list(lst_lst_aa = vec1,
                 lst_lst_bb = lst)
 lst1 <- list(lst1_aa = vec1,
@@ -100,6 +106,7 @@ test_that("round_5d_array() - Tests for correct output", {
 
 test_that("round_list() - Tests for correct output", {
   expect_equal(round_list(), NULL)
+
   # Matrix
   j <- round_list(m1)
   act <- matrix(c(1.98, 2.31, 3.14, 4.02, 3.97, 4.62, 6.28, 8.04), nrow = 4)
@@ -124,5 +131,43 @@ test_that("round_list() - Tests for correct output", {
   # expect_equal(str(j), str(lst2))
   # j <- round_list(lst_double, 2)
   # expect_equal(str(j), str(lst_double))
+
+  # Lists with character values and lists of lists with character values
+  j <- round_list(lst_with_vec_of_chars, 2)
+  expect_equal(str(j), str(lst_with_vec_of_chars))
+  j <- round_list(lst_with_lst_of_chars, 2)
+  expect_equal(str(j), str(lst_with_lst_of_chars))
+  j <- round_list(lst_with_vec_and_lst_of_chars, 2)
+  expect_equal(str(j), str(lst_with_vec_and_lst_of_chars))
+
+  # Check number of decimal points returned is correct
+  j <- round_list(scalar_lst, 1)
+  expect_equal(j[[1]], 3.1)
+  j <- round_list(scalar_lst, 2)
+  expect_equal(j[[1]], 3.14)
+  j <- round_list(scalar_lst, 3)
+  expect_equal(j[[1]], 3.142)
+  j <- round_list(scalar_lst, 4)
+  expect_equal(j[[1]], 3.1416)
+  j <- round_list(scalar_lst, 5)
+  expect_equal(j[[1]], 3.14159)
+  j <- round_list(scalar_lst, 6)
+  expect_equal(j[[1]], 3.141593)
+
+  j <- round_list(lst, 1)
+  expect_equal(j$lst_aa[2], 2.3)
+  expect_equal(j$lst_aa[3], 3.1)
+  expect_equal(j$lst_bb[2, 1], 2.3)
+  expect_equal(j$lst_bb[3, 1], 3.1)
+  expect_equal(j$lst_bb[2, 2], 4.6)
+  expect_equal(j$lst_bb[3, 2], 6.3)
+
+  j <- round_list(lst, 3)
+  expect_equal(j$lst_aa[2], 2.312)
+  expect_equal(j$lst_aa[3], 3.142)
+  expect_equal(j$lst_bb[2, 1], 2.312)
+  expect_equal(j$lst_bb[3, 1], 3.142)
+  expect_equal(j$lst_bb[2, 2], 4.625)
+  expect_equal(j$lst_bb[3, 2], 6.283)
 })
 
