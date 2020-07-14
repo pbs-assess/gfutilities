@@ -81,6 +81,9 @@ lst_zero_length_elem <- list(lst,
                              list(foo = double(),
                                   bar = integer()))
 
+# This is class integer
+ages <- 0:20
+
 test_that("round_data_frame() - Tests for correct output", {
   # Test data frame with a factor column
   j <- round_data_frame(df, 2)
@@ -115,6 +118,12 @@ test_that("round_5d_array() - Tests for correct output", {
 
 test_that("round_list() - Tests for correct output", {
   expect_equal(round_list(), NULL)
+
+  # Integer
+  j <- round_list(ages)
+  expect_equal(j, ages)
+  expect_equal(class(j), class(ages))
+  expect_equal(class(j), "integer")
 
   # Matrix
   j <- round_list(m1)
@@ -191,5 +200,6 @@ test_that("round_list() - Tests for correct output", {
 
   # An element has zero-length
   expect_error(suppressWarnings(round_list(lst_zero_length_elem)))
+
 })
 

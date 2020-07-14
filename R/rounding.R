@@ -30,6 +30,8 @@ round_list <- function(lst = NULL,
       return(round_data_frame(lst, digits))
     }else if("matrix" %in% cls){
       return(as.matrix(round_data_frame(as.data.frame(lst))))
+    }else if("integer" %in% cls){
+      return(lst)
     }else if("array" %in% cls){
       n_arr_dims <- length(dim(lst))
       if(n_arr_dims == 3){
