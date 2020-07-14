@@ -77,6 +77,10 @@ tbl <- tibble::tribble(
   1.0123, 2.349586, 1.29000002,
   2.4945, 3.344319, 4.29817376)
 
+lst_zero_length_elem <- list(lst,
+                             list(foo = double(),
+                                  bar = integer()))
+
 test_that("round_data_frame() - Tests for correct output", {
   # Test data frame with a factor column
   j <- round_data_frame(df, 2)
@@ -184,5 +188,8 @@ test_that("round_list() - Tests for correct output", {
   expect_equal(unlist(j[2, 1], use.names = FALSE), 2.49)
   expect_equal(unlist(j[2, 2], use.names = FALSE), 3.34)
   expect_equal(unlist(j[2, 3], use.names = FALSE), 4.3)
+
+  # An element has zero-length
+  expect_error(suppressWarnings(round_list(lst_zero_length_elem)))
 })
 

@@ -14,6 +14,7 @@
 round_list <- function(lst = NULL,
                        digits = 2,
                        print_elem_names = FALSE){
+
   if(is.null(lst)){
     return(NULL)
   }
@@ -60,8 +61,8 @@ round_list <- function(lst = NULL,
   if(print_elem_names){
     cat(nms[1], "\n")
   }
-  out_first <- round_list(lst[[1]], digits, print_elem_names)
-  out_therest <- round_list(lst[-1], digits, print_elem_names)
+  out_first <- suppressWarnings(round_list(lst[[1]], digits, print_elem_names))
+  out_therest <- suppressWarnings(round_list(lst[-1], digits, print_elem_names))
   if("list" %in% class(out_therest)){
     out <- c(list(out_first), out_therest)
   }else{
