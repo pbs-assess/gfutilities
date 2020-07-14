@@ -84,6 +84,12 @@ lst_zero_length_elem <- list(lst,
 # This is class integer
 ages <- 0:20
 
+# Integer column
+tbl_int <- tibble::tribble(
+  ~a,     ~b,     ~d,
+  1, 2.349586, 1.29000002,
+  2, 3.344319, 4.29817376) %>% mutate(a = as.integer(a))
+
 test_that("round_data_frame() - Tests for correct output", {
   # Test data frame with a factor column
   j <- round_data_frame(df, 2)
@@ -93,6 +99,11 @@ test_that("round_data_frame() - Tests for correct output", {
   j <- round_data_frame(df_char, 2)
   expect_equal(str(j), str(df_char))
   expect_equal(j$a, c(1.98, 2.31, 3.14, 4.02))
+
+  # Integer column remains Integer
+  j <- round_data_frame(tbl_int, 2)
+  expect_equal(str(j), str(tbl_int))
+  expect_equal(class(j$a), "integer")
 })
 
 test_that("round_3d_array() - Tests for correct output", {

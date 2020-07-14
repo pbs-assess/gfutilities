@@ -83,17 +83,18 @@ round_list <- function(lst = NULL,
 #'
 #' @return A [data.frame] identical to the input `df` but with all numerical values
 #' rounded
-#' @importFrom purrr map_df
-#' @importFrom dplyr %>%
+#' @importFrom purrr map_df map_chr
+#' @importFrom dplyr %>% mutate_if
 #' @export
 round_data_frame <- function(df, digits = 2){
   cls <- class(df)
   is_tibble <- ifelse("tbl_df" %in% cls, TRUE, FALSE)
+  col_cls <- map_chr(df, ~{class(.x)})
   out_df <- map_df(df,~{
     tryCatch(round(.x, digits),
              error = function(e) .x)
 
-  })
+  }) %>% mutate_if(col_cls == "integer", as.integer)
   if(is_tibble){
     out_df
   }else{
