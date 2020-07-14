@@ -6,19 +6,21 @@
 #'
 #' @param lst A [list] of arbitrary complexity
 #' @param digits The number of decimal points to round all numeric values to
+#' @param print_elem_names Logical. Print names of each list element to the screen
 #'
 #' @return A [list] in the same format as `lst` but with all values rounded to
 #' `digits` decimal points
 #' @export
 round_list <- function(lst = NULL,
-                       digits = 2){
+                       digits = 2,
+                       print_elem_names = FALSE){
   if(is.null(lst)){
     return(NULL)
   }
-  if(!length(lst)){
+  cls <- class(lst)
+  if("list" %in% cls && !length(lst)){
     return(NULL)
   }
-  cls <- class(lst)
   if(!"list" %in% cls){
     # At this point lst is a single non-list object (data frame, matrix, vector, etc)
     if("character" %in% cls){
@@ -40,14 +42,26 @@ round_list <- function(lst = NULL,
              call. = FALSE)
       }
     }else{
+      if(!length(lst)){
+        if(print_elem_names){
+          stop("The last list element shown above has zero length.\n",
+               call. = FALSE)
+        }else{
+          stop("A list element has zero length.\n",
+               call. = FALSE)
+        }
+      }
       return(round(lst, digits))
     }
   }
 
   # At this point lst is guaranteed to be a list of one or greater
   nms <- names(lst)
-  out_first <- round_list(lst[[1]], digits)
-  out_therest <- round_list(lst[-1], digits)
+  if(print_elem_names){
+    cat(nms[1], "\n")
+  }
+  out_first <- round_list(lst[[1]], digits, print_elem_names)
+  out_therest <- round_list(lst[-1], digits, print_elem_names)
   if("list" %in% class(out_therest)){
     out <- c(list(out_first), out_therest)
   }else{
