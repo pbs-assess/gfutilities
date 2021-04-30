@@ -29,7 +29,7 @@ round_list <- function(lst = NULL,
     }else if("data.frame" %in% cls){
       return(round_data_frame(lst, digits))
     }else if("matrix" %in% cls){
-      return(as.matrix(round_data_frame(as.data.frame(lst))))
+      return(as.matrix(round_data_frame(as.data.frame(lst), digits)))
     }else if("integer" %in% cls){
       return(lst)
     }else if("array" %in% cls){
@@ -87,13 +87,16 @@ round_list <- function(lst = NULL,
 #' @importFrom dplyr %>% mutate_if
 #' @export
 round_data_frame <- function(df, digits = 2){
+
   cls <- class(df)
   is_tibble <- ifelse("tbl_df" %in% cls, TRUE, FALSE)
   col_cls <- map_chr(df, ~{class(.x)})
   out_df <- map_df(df,~{
-    tryCatch(round(.x, digits),
-             error = function(e) .x)
-
+    if(class(.x) == "numeric"){
+      round(.x, digits)
+    }else{
+      .x
+    }
   }) %>% mutate_if(col_cls == "integer", as.integer)
   if(is_tibble){
     out_df
