@@ -1,6 +1,7 @@
 #' Escape all instances of the percent symbol properly for latex
 #'
 #' @param vec Character vector
+#' @param translate Logical. Translate to French? Default is FALSE
 #'
 #' @return The input vector with all instances of the percent symbol escaped
 #' properly for latex
@@ -9,8 +10,13 @@
 #'
 #' @examples
 #' latex.perc(c("2.5%", "50%", "97.5%"))
-latex.perc <- function(vec){
-  gsub("%", "\\\\%", vec)
+latex.perc <- function(vec, translate = FALSE){
+  if (translate) {
+    res <- gsub("%", " \\\\%", vec)
+  } else {
+    res <- gsub("%", "\\\\%", vec)
+  }
+  res
 }
 
 #' Create a string of ampersands seperated by spaces

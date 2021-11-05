@@ -4,10 +4,12 @@
 \alias{latex.perc}
 \title{Escape all instances of the percent symbol properly for latex}
 \usage{
-latex.perc(vec)
+latex.perc(vec, translate = FALSE)
 }
 \arguments{
 \item{vec}{Character vector}
+
+\item{translate}{Logical. Translate to French? Default is FALSE}
 }
 \value{
 The input vector with all instances of the percent symbol escaped
