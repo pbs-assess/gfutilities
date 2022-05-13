@@ -23,11 +23,11 @@ generalized values used internally}
 \item{extra_perf_per_level}{This is prepended by R and will be removed from the output}
 }
 \value{
-The name of the calling function at level `skip_frames` in the stack trace
+The name of the calling function at level \code{skip_frames} in the stack trace
 }
 \description{
 Get a calling function's name from within the function
 }
 \details{
-Not for external use. Use [func_name()] instead
+Not for external use. Use \code{\link[=func_name]{func_name()}} instead
 }

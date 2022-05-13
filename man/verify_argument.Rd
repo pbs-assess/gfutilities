@@ -2,7 +2,7 @@
 % Please edit documentation in R/arguments.R
 \name{verify_argument}
 \alias{verify_argument}
-\title{Verify that the argument `arg` is of the correct class, length, and
+\title{Verify that the argument \code{arg} is of the correct class, length, and
 within in a set of values}
 \usage{
 verify_argument(arg = NULL, chk_class = NULL, chk_len = NULL, chk_is_in = NULL)
@@ -10,18 +10,18 @@ verify_argument(arg = NULL, chk_class = NULL, chk_len = NULL, chk_is_in = NULL)
 \arguments{
 \item{arg}{The object to check}
 
-\item{chk_class}{A character string of the name of the class to ensure `arg` is}
+\item{chk_class}{A character string of the name of the class to ensure \code{arg} is}
 
-\item{chk_len}{A numeric value to ensure `arg` has the length of}
+\item{chk_len}{A numeric value to ensure \code{arg} has the length of}
 
-\item{chk_is_in}{A vector of values to ensure `arg` is in}
+\item{chk_is_in}{A vector of values to ensure \code{arg} is in}
 }
 \value{
-TRUE, invisibly or the function will throw an error if `arg` does not follow
+TRUE, invisibly or the function will throw an error if \code{arg} does not follow
 the constraints given; FALSE is not returned
 }
 \description{
-Verify that the argument `arg` is of the correct class, length, and
+Verify that the argument \code{arg} is of the correct class, length, and
 within in a set of values
 }
 \examples{

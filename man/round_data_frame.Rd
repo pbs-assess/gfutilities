@@ -2,21 +2,21 @@
 % Please edit documentation in R/rounding.R
 \name{round_data_frame}
 \alias{round_data_frame}
-\title{Round all numeric values found in a [data.frame] to a specified number of decimal points}
+\title{Round all numeric values found in a \link{data.frame} to a specified number of decimal points}
 \usage{
 round_data_frame(df, digits = 2)
 }
 \arguments{
-\item{df}{A [data.frame]}
+\item{df}{A \link{data.frame}}
 
 \item{digits}{The number of decimal points to round all numeric values to}
 }
 \value{
-A [data.frame] identical to the input `df` but with all numerical values
+A \link{data.frame} identical to the input \code{df} but with all numerical values
 rounded
 }
 \description{
-Round all numeric values found in a [data.frame] to a specified number of decimal points
+Round all numeric values found in a \link{data.frame} to a specified number of decimal points
 }
 \details{
 Columns which are not numeric will be returned unmodified

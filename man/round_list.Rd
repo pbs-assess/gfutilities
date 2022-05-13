@@ -2,24 +2,24 @@
 % Please edit documentation in R/rounding.R
 \name{round_list}
 \alias{round_list}
-\title{Round all values in an arbitrarily complex [list]. All character values
+\title{Round all values in an arbitrarily complex \link{list}. All character values
 are ignored and returned as they were}
 \usage{
 round_list(lst = NULL, digits = 2, print_elem_names = FALSE)
 }
 \arguments{
-\item{lst}{A [list] of arbitrary complexity}
+\item{lst}{A \link{list} of arbitrary complexity}
 
 \item{digits}{The number of decimal points to round all numeric values to}
 
 \item{print_elem_names}{Logical. Print names of each list element to the screen}
 }
 \value{
-A [list] in the same format as `lst` but with all values rounded to
-`digits` decimal points
+A \link{list} in the same format as \code{lst} but with all values rounded to
+\code{digits} decimal points
 }
 \description{
-Round all values in an arbitrarily complex [list]. All character values
+Round all values in an arbitrarily complex \link{list}. All character values
 are ignored and returned as they were
 }
 \details{

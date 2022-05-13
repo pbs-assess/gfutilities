@@ -11,8 +11,8 @@ remove.asterisks(x)
 }
 \value{
 a list of 2, first is data frame without
- asterisks, second is matrix of TRUE for for position
- so that the asterisks can be reapplied after formatting.
+asterisks, second is matrix of TRUE for for position
+so that the asterisks can be reapplied after formatting.
 }
 \description{
 Remove any asterisks found in the given data frame x

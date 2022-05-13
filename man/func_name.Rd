@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{func_name}
 \alias{func_name}
-\title{Returns a calling function's name `levels_up` levels up the stack trace}
+\title{Returns a calling function's name \code{levels_up} levels up the stack trace}
 \usage{
 func_name(levels_up = 1)
 }
@@ -11,10 +11,10 @@ func_name(levels_up = 1)
 function name}
 }
 \value{
-A calling function's name `levels_up` levels up the stack trace
+A calling function's name \code{levels_up} levels up the stack trace
 }
 \description{
-Returns a calling function's name `levels_up` levels up the stack trace
+Returns a calling function's name \code{levels_up} levels up the stack trace
 }
 \examples{
 f <- function(){

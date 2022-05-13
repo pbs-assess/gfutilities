@@ -13,11 +13,11 @@ get_shade(color, opacity = 0)
 }
 \value{
 A vector of RGB strings of the specified colors and opacity
-        Format of returned string is #RRGGBBAA
-        where RR = red, a 2-hexadecimal-digit string
-              GG = green, a 2-hexadecimal-digit string
-              BB = blue, a 2-hexadecimal-digit string
-              AA = alpha or opacity
+Format of returned string is #RRGGBBAA
+where RR = red, a 2-hexadecimal-digit string
+GG = green, a 2-hexadecimal-digit string
+BB = blue, a 2-hexadecimal-digit string
+AA = alpha or opacity
 }
 \description{
 Get an RGB string representing the color and opacity given
