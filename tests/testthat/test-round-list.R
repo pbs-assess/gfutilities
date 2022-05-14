@@ -86,9 +86,9 @@ ages <- 0:20
 
 # Integer column
 tbl_int <- tibble::tribble(
-  ~a,     ~b,     ~d,
-  1, 2.349586, 1.29000002,
-  2, 3.344319, 4.29817376) %>% mutate(a = as.integer(a))
+  ~a,       ~b,         ~d,
+  1L, 2.349586, 1.29000002,
+  2L, 3.344319, 4.29817376) #%>% mutate(a = as.integer(a))
 
 test_that("round_data_frame() - Tests for correct output", {
   # Test data frame with a factor column
