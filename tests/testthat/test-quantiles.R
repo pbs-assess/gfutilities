@@ -27,8 +27,6 @@ test_that("Arguments are acceptable", {
   # probs argument
   expect_error(summarize_quants(df, "year", "wind", "a"))
   expect_error(summarize_quants(df, "year", "wind", c(1, "a")))
-  probs_err <- c(0, 0.5, 0.95)
-  expect_error(summarize_quants(df, "year", "wind", probs_err))
   probs_err <- c(0.5, -21.01)
   expect_error(summarize_quants(df, "year", "wind", probs_err))
 

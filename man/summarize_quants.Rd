@@ -9,7 +9,8 @@ summarize_quants(
   grp_cols = NULL,
   cols = NULL,
   probs = c(0.05, 0.25, 0.5, 0.75, 0.95),
-  include_mean = TRUE
+  include_mean = TRUE,
+  check_args = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,11 @@ the calculations}
 
 \item{include_mean}{If \link{TRUE}, include the mean in the output as the column
 ending in \verb{*_avg}}
+
+\item{check_args}{If \code{TRUE}, run the code that verifies the argument
+constraints. If \code{FALSE} skip the tests. You may want to choose \code{FALSE} for
+situations when this function is placed in a loop to be run many times
+for speed savings reasons}
 }
 \value{
 A \link{data.frame} with a new column for each value in the \code{probs}

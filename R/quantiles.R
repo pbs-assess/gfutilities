@@ -21,6 +21,10 @@
 #' @param probs A vector of quantile probabilities to pass to [stats::quantile]
 #' @param include_mean If [TRUE], include the mean in the output as the column
 #' ending in `*_avg`
+#' @param check_args If `TRUE`, run the code that verifies the argument
+#' constraints. If `FALSE` skip the tests. You may want to choose `FALSE` for
+#' situations when this function is placed in a loop to be run many times
+#' for speed savings reasons
 #'
 #' @return A [data.frame] with a new column for each value in the `probs`
 #' vector and a column for the mean in `include_mean` is `TRUE`
@@ -28,25 +32,25 @@
 #' @importFrom dplyr select ungroup summarize group_by bind_cols
 #' @importFrom dplyr vars group_map summarize_at mutate
 #' @importFrom purrr map map2 set_names partial
+#' @importFrom checkargs check_arg
 #' @export
 summarize_quants <- function(df = NULL,
                              grp_cols = NULL,
                              cols = NULL,
                              probs = c(0.05, 0.25, 0.5, 0.75, 0.95),
-                             include_mean = TRUE){
+                             include_mean = TRUE,
+                             check_args = TRUE){
 
-  verify_argument(df, "data.frame")
-  verify_argument(cols, "character", chk_is_in = names(df))
-  verify_argument(grp_cols, "character", chk_is_in = names(df))
-  map(cols, ~{
-    stopifnot(class(df[[.x]]) == "numeric" | class(df[[.x]]) == "integer")
-  })
-  verify_argument(probs, "numeric")
-  if(any(probs <= 0)){
-    stop("`probs` must all be positive values",
-         call. = FALSE)
+  if(check_args){
+    check_arg(df, chk_class = "data.frame")
+    check_arg(cols, chk_class = "character", chk_is_in = names(df))
+    check_arg(grp_cols, chk_class = "character", chk_is_in = names(df))
+    map(cols, ~{
+      stopifnot(any(c("numeric", "integer") %in% class(df[[.x]])))
+    })
+    check_arg(probs, chk_class = "numeric", chk_is_in_range = c(0, 1))
+    check_arg(include_mean, chk_class = "logical", chk_len = 1)
   }
-  verify_argument(include_mean, "logical", 1)
 
   # Perform [stats::quantile] calculations and add a column for each
   # quantile value in `probs`
