@@ -16,8 +16,12 @@ Imports:
   testthat,
   tibble,
   xtable
+Remotes:
+  github::cgrandin/checkargs,
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
+URL: https://github.com/pbs-assess/gfutilities
+BugReports: https://github.com/pbs-assess/gfutilities/issues
