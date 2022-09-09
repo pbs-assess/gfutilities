@@ -2,26 +2,31 @@
 % Please edit documentation in R/rounding.R
 \name{f}
 \alias{f}
-\title{Format a value in a really nice way, including rounding and trailing zeroes}
+\title{Format a value in a nice way, including rounding and trailing zeroes}
 \usage{
-f(x, dec.points = 0)
+f(x, dec.points = 0, ...)
 }
 \arguments{
 \item{x}{The value to format}
 
 \item{dec.points}{The number of decimal points}
+
+\item{...}{Arguments passed to \code{\link[base:format]{base::format()}} which passes a lot of
+its arguments to \code{\link[base:pretty]{base::pretty()}}}
 }
 \value{
 A string representing the formatted value.
 }
 \description{
-Format a value in a really nice way, including rounding and trailing zeroes
+Format a value in a nice way, including rounding and trailing zeroes
 }
 \details{
-The value will be rounded to the number of decimal points specified,
-and will contain trailing zeroes if necessary so that the string has exactly
-the correct number of decimal points. Commas will be placed in between
-thousands.
+Uses logical option \code{french} to determine what type of marks to use for
+decimal point and thousands separator. If \code{french} is not set, will use
+option \code{OutDec} to determine this. The value will be rounded to the number
+of decimal points specified, and will contain trailing zeroes if
+necessary so that the string has exactly the correct number of decimal
+points.
 }
 \examples{
 f(10000)

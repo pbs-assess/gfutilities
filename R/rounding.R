@@ -162,27 +162,44 @@ round_5d_array <- function(arr, digits = 2){
   new_arr
 }
 
-#' Format a value in a really nice way, including rounding and trailing zeroes
+#' Format a value in a nice way, including rounding and trailing zeroes
+#'
+#' @details
+#' Uses logical option `french` to determine what type of marks to use for
+#' decimal point and thousands separator. If `french` is not set, will use
+#' option `OutDec` to determine this. The value will be rounded to the number
+#' of decimal points specified, and will contain trailing zeroes if
+#' necessary so that the string has exactly the correct number of decimal
+#' points.
 #'
 #' @param x The value to format
 #' @param dec.points The number of decimal points
+#' @param ... Arguments passed to [base::format()] which passes a lot of
+#' its arguments to [base::pretty()]
 #'
 #' @return A string representing the formatted value.
-#'
-#' @details The value will be rounded to the number of decimal points specified,
-#' and will contain trailing zeroes if necessary so that the string has exactly
-#' the correct number of decimal points. Commas will be placed in between
-#' thousands.
-#'
 #' @export
 #'
 #' @examples
 #' f(10000)
 #' f(999999.1, 3)
-f <- function(x, dec.points = 0){
+f <- function(x, dec.points = 0, ...){
+  fr <- getOption("french")
+  if(is.null(fr)){
+    od <- getOption("OutDec")
+    if(is.null(od)){
+      stop("The base option `OutDec` has not been set. Either logical ",
+           "option `french` or `OutDec` must be set for this function",
+           call. = FALSE)
+    }
+    fr <- od == ","
+  }
+
   format(round(x, dec.points),
-         big.mark = ifelse(options("OutDec") == ",", " ", ","),
-         nsmall = dec.points)
+         big.mark = ifelse(fr, " ", ","),
+         decimal.mark = ifelse(fr, ",", "."),
+         nsmall = dec.points,
+         ...)
 }
 
 # round_nice <- function(x) {
