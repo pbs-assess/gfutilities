@@ -1,3 +1,13 @@
+#' Copy a Windows path from the clipboard, replace the backslashes
+#' with forward slashes, and write the new path string back to the
+#' clipboard
+#'
+#' @return Nothing
+#' @export
+modpath <- function(){
+  writeClipboard(gsub("\\\\", "/", readClipboard()))
+}
+
 #' Do strings contain special characters
 #'
 #' @param str A vector of strings to check
